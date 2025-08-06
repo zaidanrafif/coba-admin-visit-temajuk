@@ -10,6 +10,7 @@ const Reviews: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedDestination, setSelectedDestination] = useState('');
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
+  const [formRating, setFormRating] = useState<number>(0);
 
   const destinationOptions = [...new Set(reviews.map((review) => review.destination))];
 
@@ -171,12 +172,16 @@ const Reviews: React.FC = () => {
                     <button
                       key={rating}
                       type="button"
+                      onClick={() => setFormRating(rating)}
                       className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-500"
                     >
-                      <Star className={`h-6 w-6 ${rating <= 3 ? 'text-gray-400' : 'text-accent-dark fill-current'}`} />
+                      <Star className={`h-6 w-6 ${rating <= formRating ? 'text-accent-dark fill-current' : 'text-gray-400'}`} />
                     </button>
                   ))}
                 </div>
+                {formRating > 0 && (
+                  <p className="text-sm text-gray-600 mt-2">Rating: {formRating} bintang</p>
+                )}
               </div>
 
               <div className="mb-4">
